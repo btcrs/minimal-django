@@ -7,5 +7,7 @@ services:
 
 before_install:
     - docker build -t btcrs/tiny-django
-      docker run --rm -p 8000:8000 --name tiny-django -v `pwd`/app:/code -w /code python app.py test 
+
+script:
+    - docker run --rm -p 8000:8000 -v `pwd`/app:/code -w /code python app.py test 
     - docker ps -a
