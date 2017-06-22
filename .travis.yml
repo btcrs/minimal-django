@@ -11,3 +11,9 @@ before_install:
 script:
     - docker run --rm -p 8000:8000 -v `pwd`/app:/code -w /code btcrs/tinydjango python app.py test 
     - docker ps -a
+
+after_success:
+    - if [ "$TRAVIS_BRANCH" == "master" ]; then
+        docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+        docker push btcrs/tinydjango;
+      fi
